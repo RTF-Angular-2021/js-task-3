@@ -14,5 +14,20 @@ const { Organaizer } = require('../task_4/index');
 		Отпуск не попадает в промежуток другого отпуска
 		В промежуток отпуска не назначено никаких встреч
  */
+Organaizer.prototype.addMeeting = function(meet){
+	if(this.vacations.filter(value => value.isDateInVacation(meet.meetingDate)).length > 0 
+		|| this.meetings.filter(value => value.isMeetingInTimeRange(meet.startTime, meet.endTime)
+			&& Number(value.meetingDate) == Number(meet.meetingDate)).length > 0) return false;
+	this.meetings.push(meet);
+	return true;
+}
+
+Organaizer.prototype.addVacation = function(vacation){
+	if(this.vacations.filter(value => value.isDateInVacation(vacation.vacationStartDate) 
+			|| value.isDateInVacation(vacation.vacationEndDate)).length > 0 
+		|| this.meetings.filter(value => vacation.isDateInVacation(value.meetingDate)).length > 0) return false;
+	this.vacations.push(vacation);
+	return true;
+}
 
 module.exports.Organaizer = Organaizer;

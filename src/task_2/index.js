@@ -17,6 +17,16 @@ const { Time } = require('../task_1/index');
 @param {Time} startTime - Время начала встречи
 @param {Time} endTime - Время конца встречи
  */
-function Meeting(meetingDate, startTime, endTime) { };
 
+function Meeting(meetingDate, startTime, endTime) { 
+	if(!startTime || !endTime || startTime.timeInMinutes() > endTime.timeInMinutes() || 
+		startTime.timeInMinutes() < 480 || endTime.timeInMinutes() > 1140) throw new Error('Incorrect meeting')
+	this.meetingDate = meetingDate;
+	this.startTime = startTime;
+	this.endTime = endTime;
+	this.isMeetingInTimeRange = (start, end) => 
+		this.endTime.timeInMinutes() >= start.timeInMinutes() && this.startTime.timeInMinutes() <= end.timeInMinutes() ||
+		this.startTime.timeInMinutes() <= end.timeInMinutes() && this.endTime.timeInMinutes() >= start.timeInMinutes();
+}
+	
 module.exports.Meeting = Meeting;
