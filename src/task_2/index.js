@@ -17,6 +17,28 @@ const { Time } = require('../task_1/index');
 @param {Time} startTime - Время начала встречи
 @param {Time} endTime - Время конца встречи
  */
-function Meeting(meetingDate, startTime, endTime) { };
+function Meeting(meetingDate, startTime, endTime) { 
+	if (!meetingDate instanceof Date || !startTime instanceof Time || !endTime instanceof Time || startTime.isLater(endTime)) {
+		throw 'Invalid args';
+	}
+
+	this.meetingDate = meetingDate;
+	this.startTime = startTime;
+	this.endTime = endTime;
+};
+
+/** Возвращает true, если переданный промежуток времени пересекает время встречи.
+ * 
+ * @param {Time} startTime Начало временного промежутка
+ * @param {Time} endTime Конец временного промежутка
+ */
+Meeting.prototype.isMeetingInTimeRange = function(startTime, endTime) {
+	if (!startTime instanceof Time || !endTime instanceof Time || startTime.isLater(endTime)) {
+		throw 'Invalid args';
+	}
+
+	return (this.startTime.isEarlier(startTime) && this.endTime.isLater(startTime))
+		|| (startTime.isEarlier(this.startTime) && endTime.isLater(this.startTime))
+}
 
 module.exports.Meeting = Meeting;
