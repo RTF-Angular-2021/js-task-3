@@ -16,7 +16,7 @@
 @param {number} minutes - Минуты
  */
 function Time(hours, minutes) {
-	if (hours < 0 || minutes < 0 || hours > 24 || minutes > 59) {
+	if (hours < 0 || minutes < 0 || hours > 23 || minutes > 59) {
 		throw 'Invalid args';
 	}
 	this.hours = hours;
