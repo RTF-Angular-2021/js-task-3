@@ -15,6 +15,30 @@
 @param {number} hours - Час
 @param {number} minutes - Минуты
  */
-function Time(hours, minutes) { };
+function Time(hours, minutes) { 
+	if (isInvalidTime(hours, minutes)){
+		throw 'invalid value';
+	}
+	this.hours = hours;
+	this.minutes = minutes;
+};
+
+Time.prototype.isEarlier = function(time) {
+	if (time.hours === this.hours){
+		return time.minutes > this.minutes;
+	}
+	return time.hours > this.hours;
+}
+
+Time.prototype.isLater = function(time) {
+	if (time.hours === this.hours){
+		return this.minutes > time.minutes;
+	}
+	return this.hours > time.hours;
+}
+
+function isInvalidTime(hours, minutes) {
+	return hours < 0 || hours > 24 || minutes < 0 || minutes > 60;
+}
 
 module.exports.Time = Time;
