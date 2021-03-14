@@ -15,6 +15,23 @@
 @param {number} hours - Час
 @param {number} minutes - Минуты
  */
-function Time(hours, minutes) { };
+function Time(hours, minutes) {
+	this.hours = hours;
+	this.minutes = minutes;
+	if (hours < 0 || minutes < 0 || hours > 24 || minutes > 60) throw 'exception';	
+};
+
+Time.prototype.isEarlier = function(props) {
+	return getTimeInHoursOnly(props.hours, props.minutes) > getTimeInHoursOnly(this.hours, this.minutes);
+}
+
+Time.prototype.isLater = function(props) {
+	return getTimeInHoursOnly(props.hours, props.minutes) < getTimeInHoursOnly(this.hours, this.minutes);
+}
+
+function getTimeInHoursOnly(hours, minutes) {
+	return hours + minutes / 60;
+}
+
 
 module.exports.Time = Time;
