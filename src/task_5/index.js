@@ -15,4 +15,41 @@ const { Organaizer } = require('../task_4/index');
 		В промежуток отпуска не назначено никаких встреч
  */
 
+Organaizer.prototype.addMeeting = function(meeting) {
+	for (let vacations of this.vacations) {
+		if (vacations.isDateInVacation(meeting.meetingDate)) {
+			return false;
+		}
+	}
+	
+	for (let meet of this.meetings) {
+		if (meet.meetingDate.toString() === meeting.meetingDate.toString() 
+		&& (meet.isMeetingInTimeRange(meeting.startTime, meeting.endTime)
+		|| (meeting.startTime === meet.startTime && meet.endTime === meeting.endTime))) {
+			return false;
+		}
+	}
+	this.meetings.push(meeting);
+	return true;
+}
+
+Organaizer.prototype.addVacation = function(vacation) {
+	for (let meet of this.meetings) {
+		if (vacation.isDateInVacation(meet.meetingDate)) {
+			return false;
+		}
+	}
+	
+	for (let vacations of this.vacations) {
+		if (vacations.vacationStartDate <= vacation.vacationStartDate && vacations.vacationEndDate >= vacation.vacationEndDate
+			|| vacations.vacationStartDate >= vacation.vacationStartDate && vacations.vacationStartDate <= vacation.vacationEndDate && vacations.vacationEndDate >= vacation.vacationEndDate
+			|| vacations.vacationStartDate <= vacation.vacationStartDate && vacation.vacationEndDate <= vacation.vacationEndDate && vacations.vacationEndDate >= vacation.vacationStartDate
+			|| vacations.vacationStartDate >= vacation.vacationStartDate && vacations.vacationEndDate <= vacation.vacationEndDate) {
+			return false;
+		}
+	}
+	this.vacations.push(vacation);
+	return true;
+}
+
 module.exports.Organaizer = Organaizer;
