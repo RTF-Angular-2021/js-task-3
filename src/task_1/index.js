@@ -14,7 +14,34 @@
 @this {Time}
 @param {number} hours - Час
 @param {number} minutes - Минуты
- */
-function Time(hours, minutes) { };
+*/
+function Time(hours, minutes) {
+	if (hours > 24 || hours < 0 || minutes > 60 || minutes < 0) throw Error('wrong format')
+	this.hours = hours;
+	this.minutes = minutes;
+	this.isEarlier = function (time) {
+		if (this.hours < time.hours) {
+			return true
+		}
+		else {
+			return this.hours === time.hours && this.minutes < time.minutes;
+		}
+	}
+
+	this.isLater = function (time) {
+		if (this.hours > time.hours) {
+			return true
+		}
+		else {
+			return this.hours === time.hours && this.minutes > time.minutes;
+		}
+	}
+	this.exactly = function (time) {
+		if(this.hours == time.hours && this.minutes == time.minutes){
+			return true
+		}
+	}
+	
+};
 
 module.exports.Time = Time;
