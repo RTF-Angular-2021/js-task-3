@@ -16,9 +16,11 @@
 @param {number} minutes - Минуты
  */
 function Time(hours, minutes) {
+	if (hours < 0 || minutes < 0 || hours >= 24 || minutes >= 60) {
+		throw 'exception';
+	}	
 	this.hours = hours;
 	this.minutes = minutes;
-	if (hours < 0 || minutes < 0 || hours > 24 || minutes > 60) throw 'exception';	
 };
 
 Time.prototype.isEarlier = function(props) {
