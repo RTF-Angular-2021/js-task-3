@@ -38,7 +38,7 @@ Time.prototype.isLater = function(time) {
 }
 
 function isInvalidTime(hours, minutes) {
-	return hours < 0 || hours > 24 || minutes < 0 || minutes > 60;
+	return hours < 0 || hours >= 24 || minutes < 0 || minutes >= 60;
 }
 
 module.exports.Time = Time;
