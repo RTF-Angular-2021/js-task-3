@@ -16,57 +16,48 @@ const { Organaizer } = require('../task_4/index');
  */
 Organaizer.prototype.addMeeting = function(meeting) 
 {
-	for (let vacation of this.vacations) 
+	for (let vacations of this.vacations) 
 	{
-		if (vacation.isDateInVacation(meeting.meetingDate)) 
+		if (vacations.isDateInVacation(meeting.meetingDate)) 
 		{
 			return false;
 		}
 	}
+
 	for (let meet of this.meetings) 
 	{
-		if (meetingDate.meetingDate.toString() === meeting.meetingDate.toString()) 
-		{
-			let start = meeting.startTime;
-			let end = meeting.endTime;
-			if (meet.isMeetingInTimeRange(start, end)) 
-			{
-				return false;
-			}
+		if (meet.meetingDate.toString() === meeting.meetingDate.toString() 
+		&& (meet.isMeetingInTimeRange(meeting.startTime, meeting.endTime)
+		|| (meeting.startTime === meet.startTime && meet.endTime === meeting.endTime))) {
+			return false;
 		}
 	}
-
 	this.meetings.push(meeting);
 	return true;
-}	
+}
 
 Organaizer.prototype.addVacation = function(vacation) 
 {
-	for (let vacations of this.vacations) 
+	for (let meet of this.meetings) 
 	{
-		if (isVacationInVacationRange(vacations, vacation)) 
+		if (vacation.isDateInVacation(meet.meetingDate)) 
 		{
 			return false;
 		}
 	}
-	for (const meeting of this.meetings) 
+
+	for (let vacations of this.vacations) 
 	{
-		if (vacation.isDateInVacation(meeting.meetingDate)) 
+		if (vacations.vacationStartDate <= vacation.vacationStartDate && vacations.vacationEndDate >= vacation.vacationEndDate
+			|| vacations.vacationStartDate >= vacation.vacationStartDate && vacations.vacationStartDate <= vacation.vacationEndDate && vacations.vacationEndDate >= vacation.vacationEndDate
+			|| vacations.vacationStartDate <= vacation.vacationStartDate && vacation.vacationEndDate <= vacation.vacationEndDate && vacations.vacationEndDate >= vacation.vacationStartDate
+			|| vacations.vacationStartDate >= vacation.vacationStartDate && vacations.vacationEndDate <= vacation.vacationEndDate) 
 		{
 			return false;
 		}
 	}
 	this.vacations.push(vacation);
 	return true;
-} 
-
-function isVacationInVacationRange(vacation1, vacation2) 
-{
-	const start1 = vacation1.vacationStartDate;
-	const start2 = vacation2.vacationStartDate;
-	const end1 = vacation1.vacationEndDate;
-	const end2 = vacation2.vacationEndDate;
-	return !(end1 < start2 || end2 < start1);
 }
 
 module.exports.Organaizer = Organaizer;
