@@ -16,9 +16,9 @@ const { Organaizer } = require('../task_4/index');
  */
 Organaizer.prototype.addMeeting = function(meeting) 
 {
-	for (let vacations of this.vacations)
+	for (let vacations of this.vacations) 
 	{
-		if (vacations.isDateInVacation(meeting.meetingDate))
+		if (vacations.isDateInVacation(meeting.meetingDate)) 
 		{
 			return false;
 		}
@@ -26,11 +26,9 @@ Organaizer.prototype.addMeeting = function(meeting)
 
 	for (let meet of this.meetings) 
 	{
-		const startt = meeting.startTime;
-		const endd = meeting.endTime;
 		if (meet.meetingDate.toString() === meeting.meetingDate.toString() 
-		&& (meet.isMeetingInTimeRange(startt, endd))) 
-		{
+		&& (meet.isMeetingInTimeRange(meeting.startTime, meeting.endTime)
+		|| (meeting.startTime === meet.startTime && meet.endTime === meeting.endTime))) {
 			return false;
 		}
 	}
@@ -47,15 +45,13 @@ Organaizer.prototype.addVacation = function(vacation)
 			return false;
 		}
 	}
-	
-	const start1 = vacation.vacationStartDate;
-	const end1 = vacation.vacationEndDate;
+
 	for (let vacations of this.vacations) 
 	{
-		if (vacations.vacationStartDate <= start1 && vacations.vacationEndDate >= end1
-			|| vacations.vacationStartDate >= start1 && vacations.vacationStartDate <= end1 && vacations.vacationEndDate >= end1
-			|| vacations.vacationStartDate <= start1 && vacations.vacationEndDate <= end1 && vacations.vacationEndDate >= start1
-			|| vacations.vacationStartDate >= start1 && vacations.vacationEndDate <= end1) 
+		if (vacations.vacationStartDate <= vacation.vacationStartDate && vacations.vacationEndDate >= vacation.vacationEndDate
+			|| vacations.vacationStartDate >= vacation.vacationStartDate && vacations.vacationStartDate <= vacation.vacationEndDate && vacations.vacationEndDate >= vacation.vacationEndDate
+			|| vacations.vacationStartDate <= vacation.vacationStartDate && vacation.vacationEndDate <= vacation.vacationEndDate && vacations.vacationEndDate >= vacation.vacationStartDate
+			|| vacations.vacationStartDate >= vacation.vacationStartDate && vacations.vacationEndDate <= vacation.vacationEndDate) 
 		{
 			return false;
 		}
@@ -63,6 +59,5 @@ Organaizer.prototype.addVacation = function(vacation)
 	this.vacations.push(vacation);
 	return true;
 }
-
 
 module.exports.Organaizer = Organaizer;

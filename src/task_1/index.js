@@ -17,7 +17,7 @@
  */
 function Time(hours, minutes) 
 { 
-	if (hours < 0 || minutes < 0 || hours > 23 || minutes >= 60)
+	if (isInvalidTime(hours, minutes))
 	{
 		throw 'exception';
 	}
@@ -26,25 +26,27 @@ function Time(hours, minutes)
 	this.minutes = minutes;
 };
 
-Time.prototype.isEarlier = function(time)
+Time.prototype.isEarlier = function(time) 
 {
-	if (time.hours === this.hours  && this.minutes < time.minutes)
+	if (time.hours === this.hours)
 	{
-		return this.hours < time.hours;
+		return this.minutes < time.minutes;
 	}
+	return this.hours < time.hours;
 }
 
-Time.prototype.isLater = function(time)
+Time.prototype.isLater = function(time) 
 {
-	if (time.hours === this.hours  && this.minutes > time.minutes)
+	if (time.hours === this.hours)
 	{
-		return this.hours > time.hours;
+		return this.minutes > time.minutes;
 	}
+	return this.hours > time.hours;
 }
 
-function isInvalidTime(hours, minutes)
+function isInvalidTime(hours, minutes) 
 {
-	return hours < 0 || minutes < 0 || hours > 23 || minutes >= 60;
+	return hours < 0 || hours > 23 || minutes < 0 || minutes >= 60;
 }
 
 module.exports.Time = Time;
