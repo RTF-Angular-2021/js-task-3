@@ -12,6 +12,9 @@ const { Vacation } = require('../task_3/index');
 @param {Array<Vacation>} vacations - Массив отпусков
  */
 
-function Organaizer(meetings, vacations) { };
+function Organaizer(meetings, vacations) {
+	this.meetings = meetings;
+	this.vacations = vacations;
+ };
 
 module.exports.Organaizer = Organaizer;
