@@ -17,6 +17,27 @@ const { Time } = require('../task_1/index');
 @param {Time} startTime - Время начала встречи
 @param {Time} endTime - Время конца встречи
  */
-function Meeting(meetingDate, startTime, endTime) { };
+function Meeting(meetingDate, startTime, endTime) {
+	if (!meetingDate || !startTime || !endTime || startTime.isLater(endTime) || startTime.hours < 8 || endTime.hours > 19)
+		throw new Error();
+	
+	this.meetingDate = meetingDate;
+	this.startTime = startTime;
+	this.endTime = endTime;
+};
+
+ Meeting.prototype.isMeetingInTimeRange = function (begin,end) {
+	if (((this.startTime.hours === begin.hours) && (this.startTime.minutes === begin.minutes)) ||
+		((this.startTime.hours === end.hours) && (this.startTime.minutes === end.minutes)) ||
+		((this.endTime.hours === begin.hours) && (this.endTime.minutes === begin.minutes)) ||
+		((this.endTime.hours === end.hours) && (this.endTime.minutes === end.minutes))) 
+			return true;
+
+	if ((this.endTime.isLater(begin) && this.startTime.isEarlier(end)) || 
+	(this.startTime.isEarlier(end) && this.endTime.isLater(begin))) 
+		return true;
+
+	return false;
+ }
 
 module.exports.Meeting = Meeting;
