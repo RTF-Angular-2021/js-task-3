@@ -16,7 +16,7 @@
 @param {number} minutes - Минуты
 */
 function Time(hours, minutes) {
-	if (hours > 24 || hours < 0 || minutes > 60 || minutes < 0) throw Error('wrong format')
+	if (hours >= 24 || hours < 0 || minutes >= 60 || minutes < 0) throw Error('wrong format')
 	this.hours = hours;
 	this.minutes = minutes;
 	this.isEarlier = function (time) {

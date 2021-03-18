@@ -19,8 +19,8 @@ const { Time } = require('../task_1/index');
  */
 function Meeting(meetingDate, startTime, endTime) {
 	
-	if (!startTime || !endTime || !meetingDate) {
-		throw ('no value');
+	if (!startTime || !endTime) {
+		throw ('invalid values');
 	}
 	else {
 		this.meetingDate = meetingDate;
