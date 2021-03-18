@@ -22,7 +22,7 @@ function Vacation(vacationStartDate, vacationEndDate)
 
 	Vacation.prototype.isDateInVacation = function(Date)
 	{
-		return vacationStartDate <= Date && vacationEndDate >= Date;
+		return this.vacationStartDate <= Date && this.vacationEndDate >= Date;
 	}
 }
 

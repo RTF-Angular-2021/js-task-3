@@ -17,49 +17,47 @@ const { Organaizer } = require('../task_4/index');
 		Отпуск не попадает в промежуток другого отпуска
 		В промежуток отпуска не назначено никаких встреч
  */
-
-Organaizer.prototype.addMeeting = function(newMeet)
-{
-	for(let vacation of this.vacations)
-	{
-		if(vacation.isDateInVacation(newMeet.meetingDate))
+		Organaizer.prototype.addMeeting = function(newMeet)
 		{
-			return false;
+			for(let vacation of this.vacations)
+			{
+				if(vacation.isDateInVacation(newMeet.meetingDate))
+				{
+					return false;
+				}
+			}
+		
+			for(let meet of this.meetings)
+			{
+				if(meet.isMeetingInTimeRange(newMeet.startTime, newMeet.endTime) && 
+					Number(meet.meetingDate) === Number(newMeet.meetingDate))
+				{
+					return false;
+				}
+			}
+			this.meetings.push(newMeet);
+			return true;
 		}
-	}
-	
-	for(let meet of this.meetings)
-	{
-		if(meet.isMeetingInTimeRange(newMeet.startTime, newMeet.endTime) && 
-			Number(meet.meetingDate) === Number(newMeet.meetingDate))
+		
+		Organaizer.prototype.addVacation = function(newVacation)
 		{
-			return false;
+			for (let meet of this.meetings)
+			{
+				if(newVacation.isDateInVacation(meet.meetingDate))
+				{
+					return false;
+				}
+			}	
+			for (let vacation of this.vacations)
+			{
+				if(newVacation.isDateInVacation(vacation.vacationStartDate) || newVacation.isDateInVacation(vacation.vacationEndDate))
+				{
+					return false;
+				}
+			}
+			this.vacations.push(newVacation);
+			return true;
 		}
-	}
-	this.meetings.push(newMeet);
-	return true;
-}
-
-Organaizer.prototype.addVacation = function(newVacation)
-{
-	for (let meet of this.meetings)
-	{
-		if(newVacation.isDateInVacation(meet.meetingDate))
-		{
-			return false;
-		}
-	}	
-	for (let vacation of this.vacations)
-	{
-		if(newVacation.isDateInVacation(vacation.vacationStartDate) || newVacation.isDateInVacation(vacation.vacationEndDate))
-		{
-			return false;
-		}
-	}
-	this.vacations.push(newVacation);
-	return true;
-}
-
-
-
+		
+		
 module.exports.Organaizer = Organaizer;
