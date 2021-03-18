@@ -27,9 +27,11 @@ Organaizer.prototype.addMeeting = function(newMeet)
 			return false;
 		}
 	}
+	
 	for(let meet of this.meetings)
 	{
-		if(meet.isMeetingInTimeRange(newMeet.meetingDate))
+		if(meet.isMeetingInTimeRange(newMeet.startTime, newMeet.endTime) && 
+			Number(meet.meetingDate) === Number(newMeet.meetingDate))
 		{
 			return false;
 		}
@@ -40,8 +42,22 @@ Organaizer.prototype.addMeeting = function(newMeet)
 
 Organaizer.prototype.addVacation = function(newVacation)
 {
-		this.vacations.push(newVacation);
-		return true;
+	for (let meet of this.meetings)
+	{
+		if(newVacation.isDateInVacation(meet.meetingDate))
+		{
+			return false;
+		}
+	}	
+	for (let vacation of this.vacations)
+	{
+		if(newVacation.isDateInVacation(vacation.vacationStartDate) || newVacation.isDateInVacation(vacation.vacationEndDate))
+		{
+			return false;
+		}
+	}
+	this.vacations.push(newVacation);
+	return true;
 }
 
 
