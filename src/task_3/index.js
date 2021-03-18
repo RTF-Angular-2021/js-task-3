@@ -12,20 +12,14 @@
  */
 
 function Vacation(vacationStartDate, vacationEndDate) {
-	if(!vacationEndDate || !vacationStartDate || (vacationStartDate > vacationEndDate) ||
-	    vacationStartDate.toISOString() == vacationEndDate.toISOString()){
+	if(!vacationEndDate || !vacationStartDate || (vacationStartDate >= vacationEndDate)){
 		throw new Error();
 	}
 	this.vacationEndDate = vacationEndDate;
 	this.vacationStartDate = vacationStartDate;
 
-	this.isDateInVacation = (date) => {
-		date.setHours(0,0,0,0);
-		vacationStartDate.setHours(0,0,0,0);
-		vacationEndDate.setHours(0,0,0,0);
-		if(vacationStartDate >= date && date <= vacationEndDate)
-			return true;
-		return false;
+	this.isDateInVacation = (Date) => {
+		return vacationStartDate <= Date && Date <= vacationEndDate;
 	};
 
  }
