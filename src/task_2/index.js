@@ -19,7 +19,7 @@ const { Time } = require('../task_1/index');
  */
 function Meeting(meetingDate, startTime, endTime) {
 	
-	if (!startTime || !endTime) {
+	if (!startTime || !endTime || startTime.isLater(endTime) || startTime.hours < 8 || endTime.hours > 19) {
 		throw ('invalid values');
 	}
 	else {
