@@ -30,13 +30,22 @@ function Time(hours, minutes) {
 		return minutes
 	}
 
+	this.getMinutesValue = function(){
+		return hours*60+minutes;
+	};
+
 	this.isEarlier = function(item){
 		return hours*60+minutes < item.hours*60+item.minutes;
-	}
+	};
 
 	this.isLater = function(item){
 		return hours*60+minutes > item.hours*60+item.minutes;
-	}
- };
+	};
+
+	this.equals = function(item){
+		if(this.hours === item.hours && this.minutes === item.minutes)
+			return true;
+	};
+}
 
 module.exports.Time = Time;
