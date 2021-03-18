@@ -11,6 +11,23 @@
 @param {Date} vacationEndDate - Время конца отпуска
  */
 
-function Vacation(vacationStartDate, vacationEndDate) { };
+function Vacation(vacationStartDate, vacationEndDate) {
+	if(!vacationEndDate || !vacationStartDate || (vacationStartDate > vacationEndDate) ||
+	    vacationStartDate.toISOString() == vacationEndDate.toISOString()){
+		throw new Error();
+	}
+	this.vacationEndDate = vacationEndDate;
+	this.vacationStartDate = vacationStartDate;
+
+	this.isDateInVacation = (date) => {
+		date.setHours(0,0,0,0);
+		vacationStartDate.setHours(0,0,0,0);
+		vacationEndDate.setHours(0,0,0,0);
+		if(vacationStartDate >= date && date <= vacationEndDate)
+			return true;
+		return false;
+	};
+
+ }
 
 module.exports.Vacation = Vacation;
