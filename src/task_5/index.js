@@ -1,3 +1,6 @@
+const { Time } = require('../../src/task_1/index');
+const { Meeting } = require('../../src/task_2/index');
+const { Vacation } = require('../../src/task_3/index');
 const { Organaizer } = require('../task_4/index');
 
 /* Задача 5 - Расширить прототип класса Organaizer следующими методами:
@@ -14,5 +17,33 @@ const { Organaizer } = require('../task_4/index');
 		Отпуск не попадает в промежуток другого отпуска
 		В промежуток отпуска не назначено никаких встреч
  */
+
+Organaizer.prototype.addMeeting = function(newMeet)
+{
+	for(let vacation of this.vacations)
+	{
+		if(vacation.isDateInVacation(newMeet.meetingDate))
+		{
+			return false;
+		}
+	}
+	for(let meet of this.meetings)
+	{
+		if(meet.isMeetingInTimeRange(newMeet.meetingDate))
+		{
+			return false;
+		}
+	}
+	this.meetings.push(newMeet);
+	return true;
+}
+
+Organaizer.prototype.addVacation = function(newVacation)
+{
+		this.vacations.push(newVacation);
+		return true;
+}
+
+
 
 module.exports.Organaizer = Organaizer;
