@@ -23,7 +23,7 @@ Organaizer.prototype.addMeeting = function(meeting) {
 	}
 
 	for (let orgMeeting of this.meetings){
-		if (orgMeeting.meetingDate.toString() == meeting.meetingDate.toString()
+		if (orgMeeting.meetingDate.toString() === meeting.meetingDate.toString()
 			&& orgMeeting.isMeetingInTimeRange(meeting.startTime, meeting.endTime)){
 			return false;
 		}

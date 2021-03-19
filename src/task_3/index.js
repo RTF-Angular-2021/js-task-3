@@ -1,3 +1,7 @@
+function isValidVacation(vacationStartDate, vacationEndDate) {
+	return vacationStartDate < vacationEndDate;
+}
+
 /** Задача 3 - Класс Vacation
 Требуется написать класс отпуска - Vacation, который содержит:
 	3.1. Дата начала (объект класса Date)
@@ -22,10 +26,6 @@ function Vacation(vacationStartDate, vacationEndDate) {
 
 Vacation.prototype.isDateInVacation = function(date) {
 	return this.vacationStartDate <= date && this.vacationEndDate >= date;
-}
-
-function isValidVacation(vacationStartDate, vacationEndDate) {
-	return vacationStartDate < vacationEndDate;
 }
 
 module.exports.Vacation = Vacation;

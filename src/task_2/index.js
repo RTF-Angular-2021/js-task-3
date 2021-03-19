@@ -1,4 +1,13 @@
 const { Time } = require('../task_1/index');
+
+
+function isValidMeeting(meetingDate, startTime, endTime) {
+	return startTime.isEarlier(endTime)
+		&& startTime.hours >= 8
+		&& (endTime.hours < 19 ||
+			(endTime.hours === 19 && endTime.minutes === 0))
+}
+
 /** Задача 2 - Класс Meeting
 Требуется написать класс встречи - Meeting, который содержит:
 	2.1. Поле c датой встречи (объект класса Date)
@@ -30,13 +39,6 @@ function Meeting(meetingDate, startTime, endTime) {
 Meeting.prototype.isMeetingInTimeRange = function(startTime, endTime) {
 	return this.startTime.isEarlier(endTime) 
 		&& this.endTime.isLater(startTime);
-}
-
-function isValidMeeting(meetingDate, startTime, endTime) {
-	return startTime.isEarlier(endTime)
-		&& startTime.hours >= 8
-		&& (endTime.hours < 19 ||
-			(endTime.hours == 19 && endTime.minutes == 0))
 }
 
 module.exports.Meeting = Meeting;

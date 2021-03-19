@@ -1,3 +1,7 @@
+function isValidTime(hours, minutes) {
+	return hours <= 23 && hours >= 0 && minutes <= 59 && minutes >= 0;
+}
+
 /** Задача 1 - Класс Time
 Требуется написать класс времени - Time, который содержит:
 	1.1. Поле с часами — hours (number)
@@ -24,18 +28,15 @@ function Time(hours, minutes) {
 	this.minutes = minutes;
 };
 
-function isValidTime(hours, minutes) {
-	return hours <= 23 && hours >= 0 && minutes <= 59 && minutes >= 0;
-}
 
 Time.prototype.isEarlier = function(time) {
 	return (this.hours < time.hours)
-		|| (this.hours == time.hours && this.minutes < time.minutes);
+		|| (this.hours === time.hours && this.minutes < time.minutes);
 };
 
 Time.prototype.isLater = function(time) {
 	return (this.hours > time.hours)
-		|| (this.hours == time.hours && this.minutes > time.minutes);
+		|| (this.hours === time.hours && this.minutes > time.minutes);
 };
 
 module.exports.Time = Time;
