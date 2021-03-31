@@ -15,6 +15,13 @@
 @param {number} hours - Час
 @param {number} minutes - Минуты
  */
-function Time(hours, minutes) { };
+function Time(hours, minutes) {
+	if(hours > 23 || hours < 0 || minutes > 60 || minutes < 0) throw new Error('Incorrect time');
+	this.hours = hours;
+	this.minutes = minutes;
+	this.isEarlier = time => time.timeInMinutes() > this.timeInMinutes(); 
+	this.isLater = time => time.timeInMinutes() < this.timeInMinutes(); 
+	this.timeInMinutes = () => this.minutes + this.hours * 60;
+}
 
 module.exports.Time = Time;
