@@ -19,11 +19,15 @@ const { Time } = require('../task_1/index');
  */
 function Meeting(meetingDate, startTime, endTime) {
 	if (startTime.hours > endTime.hours)
+	{
 		throw new Error();
+	}
 	else 
 	{
-		if (startTime.minutes > endTime.minutes && startTime.hours == endTime.hours)
+		if (startTime.minutes > endTime.minutes && startTime.hours === endTime.hours)
+		{
 			throw new Error();
+		}
 	}
 	this.startTime = startTime;
 	this.meetingDate = meetingDate;
@@ -31,21 +35,36 @@ function Meeting(meetingDate, startTime, endTime) {
  };
 
 Meeting.prototype.isMeetingInTimeRange = function(start, end){
-	if (this.startTime.hours == start.hours)
+	if (this.startTime.hours === start.hours)
 	{
-		if (this.endTime.hours < end.hours) return true;
+		if (this.endTime.hours < end.hours)
+		{
+			 return true;
+		}
 		else
 		{
-			if (end.minutes < this.startTime.minutes) return false;
-			else return true;
+			if (end.minutes < this.startTime.minutes)
+			{
+				return false;
+			}
+			else 
+			{
+				return true;
+			}
 		}
 	}
 	else
 	{
-		if (end.hours < this.endTime.hours) return false;
+		if (end.hours < this.endTime.hours)
+		{ 
+			return false;
+		}
 		else 
 		{
-			if (end.minutes > this.startTime.minutes) return true;
+			if (end.minutes > this.startTime.minutes) 
+			{
+				return true;
+			}
 		}
 	}
 };

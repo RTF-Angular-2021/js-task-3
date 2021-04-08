@@ -13,14 +13,14 @@
 
 function Vacation(vacationStartDate, vacationEndDate) {
 	if (vacationStartDate > vacationEndDate || 
-		(vacationStartDate.getDate() == vacationEndDate.getDate())) throw new Error();
+		(vacationStartDate.getDate() === vacationEndDate.getDate())) throw new Error();
 	this.vacationStartDate = vacationStartDate;
 	this.vacationEndDate = vacationEndDate;
  };
 
  Vacation.prototype.isDateInVacation = function(date){
 	if (this.vacationStartDate.getDate() <= date.getDate() && this.vacationEndDate.getDate() >= date.getDate() && 
-	date.getFullYear() == this.vacationStartDate.getFullYear())
+	date.getFullYear() === this.vacationStartDate.getFullYear())
 	 	return true;
 	else return false;
  };
