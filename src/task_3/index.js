@@ -1,16 +1,14 @@
-/** Задача 3 - Класс Vacation
-Требуется написать класс отпуска - Vacation, который содержит:
-	3.1. Дата начала (объект класса Date)
-	3.2. Дата окончания (объект класса Time)
-	3.3. Прототип класса должен содержать метод isDateInVacation, принимающий один аргумент — дату.
-	Должен возвращать true, если переданная дата, входит в промежуток отпуска.
-	3.4. Дата окончания отпуска должна быть позже даты начала
-@constructor
-@this {Vacation}
-@param {Date} vacationStartDate - Дата начала отпуска
-@param {Date} vacationEndDate - Время конца отпуска
- */
+function Vacation(vacationStartDate, vacationEndDate) {
+	if (typeof vacationStartDate === "undefined" || typeof vacationEndDate === "undefined")
+		throw "Необходимо передать оба аргумента";
+	if (vacationStartDate - vacationEndDate >= 0)
+		throw "Дата окончания отпуска должна быть позже даты начала";
+	this.vacationStartDate = vacationStartDate;
+	this.vacationEndDate = vacationEndDate;
+};
 
-function Vacation(vacationStartDate, vacationEndDate) { };
+Vacation.prototype.isDateInVacation = function (date) {
+	return date - this.vacationStartDate >= 0 && this.vacationEndDate - date >= 0;
+}
 
 module.exports.Vacation = Vacation;

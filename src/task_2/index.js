@@ -1,22 +1,26 @@
 const { Time } = require('../task_1/index');
-/** Задача 2 - Класс Meeting
-Требуется написать класс встречи - Meeting, который содержит:
-	2.1. Поле c датой встречи (объект класса Date)
-	2.2. Поле — время начала встречи (объект класса Time)
-	2.3. Поле — время конца встречи (объект класса Time)
-	2.4. Прототип класса должен содержать метод isMeetingInTimeRange, принимающий два аргумента:
-		Начало временного промежутка — объект класса Time
-		Конец временного промежутка — объект класса Time
-		Должен возвращать true, если встреча, у которой был вызван метод,
-		пересекает переданный временной промежутук
-	2.5. Время начала встречи должно быть больше времени конца
-	2.6. Встреча может быть назначана только в промежутке между 08:00 до 19:00
-@constructor
-@this {Meeting}
-@param {Date} meetingDate - Дата встречи
-@param {Time} startTime - Время начала встречи
-@param {Time} endTime - Время конца встречи
- */
-function Meeting(meetingDate, startTime, endTime) { };
+
+function Meeting(meetingDate, startTime, endTime) {
+	if (startTime.hours > endTime.hours || startTime.hours === endTime.hours
+		&& startTime.minutes >= endTime.minutes)
+		throw "Встреча не может начаться позже завершения";
+	if (startTime.hours < 8 || endTime.hours >= 19 && endTime.minutes !== 0)
+		throw "Встреча может быть назначана только в промежутке между 08:00 до 19:00";
+	this.meetingDate = meetingDate;
+	this.startTime = startTime;
+	this.endTime = endTime;
+};
+
+Meeting.prototype.isMeetingInTimeRange = function (startTime, endTime) {
+	let isBetween = (start, item, end) => item >= start && item <= end;
+	let thisStartTime = this.startTime.hours * 60 + this.startTime.minutes;
+	let thisEndTime = this.endTime.hours * 60 + this.endTime.minutes;
+	startTime = startTime.hours * 60 + startTime.minutes;
+	endTime = endTime.hours * 60 + endTime.minutes;
+	return isBetween(thisStartTime, startTime, thisEndTime) ||
+		isBetween(thisStartTime, endTime, thisEndTime) ||
+		isBetween(startTime, thisStartTime, endTime) ||
+		isBetween(startTime, thisEndTime, endTime);
+}
 
 module.exports.Meeting = Meeting;
