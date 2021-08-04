@@ -15,6 +15,28 @@
 @param {number} hours - Час
 @param {number} minutes - Минуты
  */
-function Time(hours, minutes) { };
+class Time {
+
+	constructor(hours, minutes) {
+		if (hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59) {
+			this.hours = hours;
+			this.minutes = minutes;
+		} else {
+			throw new Error();
+		}
+	}
+
+	isEarlier(time) {
+		if (time.hours > this.hours) return true;
+		else if (time.hours === this.hours) return time.minutes > this.minutes;
+		else return false;
+	}
+
+	isLater(time) {
+		if (time.hours < this.hours) return true;
+		else if (time.hours === this.hours) return time.minutes < this.minutes;
+		else return false;
+	}
+}
 
 module.exports.Time = Time;
