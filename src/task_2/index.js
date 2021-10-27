@@ -17,6 +17,39 @@ const { Time } = require('../task_1/index');
 @param {Time} startTime - Время начала встречи
 @param {Time} endTime - Время конца встречи
  */
-function Meeting(meetingDate, startTime, endTime) { };
+function Meeting(meetingDate, startTime, endTime) {
+	if (
+		startTime.hours >= 8 &&
+		startTime.hours <= 19 &&
+		meetingDate instanceof Date &&
+		startTime instanceof Time &&
+		endTime instanceof Time &&
+		startTime &&
+		endTime
+	) {
+		this.meetingDate = meetingDate;
+		this.startTime = startTime;
+		this.endTime = endTime;
+	} else {
+		throw new Error("Время должно быть между 8 и 19");
+	}
+}
+
+//Должен возвращать true, если встреча, у которой был вызван метод,
+//  пересекает переданный временной промежутук
+Meeting.prototype.isMeetingInTimeRange = function (startTime, endTime) {
+	if (
+		this.startTime.hours === startTime.hours ||
+		(this.startTime.minutes <= startTime.minutes &&
+			this.endTime.hours <= endTime.hours) ||
+		this.endTime.minutes <= endTime.minutes
+	) {
+		console.log(true);
+		return true;
+	} else {
+		console.log(false);
+		return false;
+	}
+};
 
 module.exports.Meeting = Meeting;

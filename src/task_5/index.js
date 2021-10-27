@@ -1,4 +1,7 @@
-const { Organaizer } = require('../task_4/index');
+const { Time } = require('../../src/task_1/index');
+const { Meeting } = require('../../src/task_2/index');
+const { Vacation } = require('../../src/task_3/index');
+const { Organaizer } = require('../../src/task_4/index');
 
 /* Задача 5 - Расширить прототип класса Organaizer следующими методами:
 	5.1. addMeeting, принимающий — объект класса Meeting.
@@ -14,5 +17,48 @@ const { Organaizer } = require('../task_4/index');
 		Отпуск не попадает в промежуток другого отпуска
 		В промежуток отпуска не назначено никаких встреч
  */
+
+Organaizer.prototype.addMeeting = function (Meeting, Vocation) {
+    if (this.meetings.length === 0) {
+        this.meetings.push(Meeting);
+
+        return true;
+    }
+
+    let shouldPush = false;
+
+    this.meetings.forEach((meet) => {
+        if (
+            meet.meetingDate.getTime() == Meeting.meetingDate.getTime() &&
+            !meet.isMeetingInTimeRange(Meeting.startTime.hours, Meeting.endTime.hours)
+        ) {
+            shouldPush = true;
+            return;
+        } else if (meet.meetingDate.getTime() !== Meeting.meetingDate.getTime()) {
+            shouldPush = true;
+            return;
+        } else if (
+            meet.meetingDate.getTime() == Meeting.meetingDate.getTime() &&
+            meet.isMeetingInTimeRange(Meeting.startTime.hours, Meeting.endTime.hours)
+        ) {
+            shouldPush = false;
+            return;
+        } else if (
+            meet.meetingDate.getTime() == Meeting.meetingDate.getTime() &&
+            meet.isMeetingInTimeRange(Meeting.startTime.hours, Meeting.endTime.hours)
+        ) {
+            shouldPush = false;
+            return;
+        }
+    });
+
+    if (shouldPush) {
+        this.meetings.push(Meeting);
+        return true;
+    }
+
+    return false;
+};
+
 
 module.exports.Organaizer = Organaizer;

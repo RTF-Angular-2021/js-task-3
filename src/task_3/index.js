@@ -10,7 +10,40 @@
 @param {Date} vacationStartDate - Дата начала отпуска
 @param {Date} vacationEndDate - Время конца отпуска
  */
+function Vacation(vacationStartDate, vacationEndDate) {
+    if (vacationStartDate < vacationEndDate) {
+        if (
+            vacationStartDate instanceof Date &&
+            vacationEndDate instanceof Date &&
+            vacationStartDate &&
+            vacationEndDate
+        ) {
+            this.vacationStartDate = vacationStartDate;
+            this.vacationEndDate = vacationEndDate;
+        } else {
+            throw new Error("ошибка");
+        }
+    } else if (
+        vacationStartDate > vacationEndDate ||
+        vacationStartDate === vacationEndDate ||
+        vacationStartDate === undefined ||
+        vacationEndDate === undefined
+    ) {
+        throw new Error("ошибка");
+    }
+    else {
+        throw new Error("ошибка");
+    }
+}
 
-function Vacation(vacationStartDate, vacationEndDate) { };
+Vacation.prototype.isDateInVacation = function (date) {
+    if (date >= this.vacationStartDate && date <= this.vacationEndDate) {
+        console.log(true);
+        return true;
+    }
+    else {
+        return false
+    }
+};
 
 module.exports.Vacation = Vacation;
