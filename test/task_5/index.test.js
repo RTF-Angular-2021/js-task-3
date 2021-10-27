@@ -1,6 +1,7 @@
 const { Time } = require('../../src/task_1/index');
 const { Meeting } = require('../../src/task_2/index');
 const { Vacation } = require('../../src/task_3/index');
+
 const { Organaizer } = require('../../src/task_5/index');
 
 const organaizer = new Organaizer([], []);
